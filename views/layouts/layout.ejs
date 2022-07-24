@@ -11,6 +11,7 @@
     <script defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
     <script defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <script defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
     <script defer src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 </head>
 <body>
@@ -23,11 +24,24 @@
     <script>
         
   document.addEventListener('DOMContentLoaded', function() {
-    FilePond.parse(document.body);
-    // Register any plugins
-    FilePond.registerPlugin(FilePondPluginImagePreview);
-    FilePond.registerPlugin(FilePondPluginImageResize);
-    FilePond.registerPlugin(FilePondPluginFileEncode);
+    // We want to preview images, so we register
+// the Image Preview plugin, We also register 
+// exif orientation (to correct mobile image
+// orientation) and size validation, to prevent
+// large files from being added
+FilePond.registerPlugin(FilePondPluginImagePreview)
+FilePond.registerPlugin(FilePondPluginImageResize)
+FilePond.registerPlugin(FilePondPluginImageExifOrientation)
+FilePond.registerPlugin(FilePondPluginFileEncode)
+
+FilePond.parse(document.body) 
+
+FilePond.setOptions({
+    stylePanelAspectRatio: 1.5/1,
+    imageResizeTargetWidth: 100,
+    imageResizeTargetHeight: 150
+})
+
   });      
     </script>
 </body>
