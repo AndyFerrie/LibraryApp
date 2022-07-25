@@ -30,13 +30,11 @@ if (process.env.NODE_ENV !== 'production') {
   app.use('/authors', authorRouter)
   app.use('/books', bookRouter)
 
-  // This will stop you from getting any CORS errors.
-app.use("*", async (req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localapp.com:3000")
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS")
-  res.setHeader("Access-Control-Allow-Headers", "Origin, Accept, Content-Type, Authorization")
-  res.setHeader("Access-Control-Allow-Credentials", true)
-  next()
-})
+  app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
+  });
   
   app.listen(process.env.PORT || 3000)
