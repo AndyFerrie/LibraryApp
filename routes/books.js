@@ -52,6 +52,18 @@ router.post('/', async (req, res) => {
   }
 })
 
+router.get('/:id', async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id)
+                            .populate('author')
+                            .exec()
+    res.render('books/show', { book: book })
+  } catch {
+    res.redirect('/books')
+  }
+})
+    
+
 async function renderNewPage(res, book, hasError = false) {
   try {
     const authors = await Author.find({})
