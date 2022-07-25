@@ -7,6 +7,7 @@ if (process.env.NODE_ENV !== 'production') {
   const expressLayouts = require('express-ejs-layouts')
   const bodyParser = require('body-parser')
   const methodOverride = require('method-override')
+  const cors = require('cors')
   
   const indexRouter = require('./routes/index')
   const authorRouter = require('./routes/authors')
@@ -19,6 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(methodOverride('_method'))
   app.use(express.static('public'))
   app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
+  app.use(cors())
   
   const mongoose = require('mongoose')
   mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
@@ -29,12 +31,5 @@ if (process.env.NODE_ENV !== 'production') {
   app.use('/', indexRouter)
   app.use('/authors', authorRouter)
   app.use('/books', bookRouter)
-
-  app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
-    next();
-  });
   
   app.listen(process.env.PORT || 3000)
