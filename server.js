@@ -21,6 +21,7 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(express.static('public'))
   app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
   app.use(cors())
+  app.options('*', cors())
   
   const mongoose = require('mongoose')
   mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
