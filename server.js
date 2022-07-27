@@ -8,6 +8,15 @@ if (process.env.NODE_ENV !== 'production') {
   const bodyParser = require('body-parser')
   const methodOverride = require('method-override')
   const cors = require('cors')
+
+  app.use(function (req, res, next) {
+    res.setHeader(
+      'Content-Security-Policy',
+      "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'"
+    );
+    next();
+  });
+  
   
   const indexRouter = require('./routes/index')
   const authorRouter = require('./routes/authors')
