@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(function (req, res, next) {
     res.setHeader(
       'Content-Security-Policy',
-      "default-src 'self' https://mybrary79.herokuapp.com/; font-src 'self'; img-src 'self' data: https://mybrary79.herokuapp.com/; script-src 'self' 'unsafe-inline' https://mybrary79.herokuapp.com/ https://unpkg.com; style-src 'self' https://unpkg.com; frame-src 'self'"
+      "default-src 'self' 'unsafe-inline' https://mybrary79.herokuapp.com/; font-src 'self'; img-src 'self' data: https://mybrary79.herokuapp.com/; script-src 'self' 'unsafe-inline' https://mybrary79.herokuapp.com/ https://unpkg.com; style-src 'self' https://unpkg.com; frame-src 'self'"
     );
     next();
   });
